@@ -3,7 +3,7 @@
 Created on Fri Sep 18 18:04:03 2020
 
 @author: John Rabaey
-@title: BuffonsNeedleFullSimulation.py
+@title: FullSimulation.py
 """
 
 from numpy import genfromtxt, column_stack, savetxt, interp, linspace, pi, arccos, cos, average
