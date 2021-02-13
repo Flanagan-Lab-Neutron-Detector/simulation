@@ -1,0 +1,119 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov  3 19:18:21 2020
+
+@author: John Rabaey
+@title: BPSGvB203comparison.py
+"""
+from numpy import genfromtxt
+import matplotlib.pyplot as plt
+
+BPSG_charge_dist = genfromtxt('./results/BPSG data/charge-distance.csv', delimiter=',')
+B203_charge_dist = genfromtxt('./results/B203 data/charge-distance.csv', delimiter=',')
+
+BPSG_distlist = BPSG_charge_dist[:,0]
+BPSG_Li_dQdx = BPSG_charge_dist[:,1]
+BPSG_He_dQdx = BPSG_charge_dist[:,2]
+B203_distlist = B203_charge_dist[:,0]
+B203_Li_dQdx = B203_charge_dist[:,1]
+B203_He_dQdx = B203_charge_dist[:,2]
+
+plt.figure()
+plt.title("Charge deposited as a function of distance--Li")
+plt.plot(BPSG_distlist, BPSG_Li_dQdx, 'r', label="BPSG")
+plt.plot(B203_distlist, B203_Li_dQdx, 'g', label="B203")
+plt.xlabel("x ($\\mu m$)")
+plt.ylabel("$\\frac{dQ}{dx}$ ($\\frac{fC}{\\mu m}$)")
+plt.grid()
+plt.legend()
+plt.savefig('./results/Integrated plots/charge-distance-Li.svg')
+
+plt.figure()
+plt.title("Charge deposited as a function of distance--He")
+plt.plot(BPSG_distlist, BPSG_He_dQdx, 'r', label="BPSG")
+plt.plot(B203_distlist, B203_He_dQdx, 'g', label="B203")
+plt.xlabel("x ($\\mu m$)")
+plt.ylabel("$\\frac{dQ}{dx}$ ($\\frac{fC}{\\mu m}$)")
+plt.grid()
+plt.legend()
+plt.savefig('./results/Integrated plots/charge-distance-He.svg')
+
+
+BPSG_interactions_width = genfromtxt('./results/BPSG data/normalized-interaction-count.csv', delimiter=',')
+B203_interactions_width = genfromtxt('./results/B203 data/normalized-interaction-count.csv', delimiter=',')
+
+BPSG_widthlist = BPSG_interactions_width[:,0]
+BPSG_interactions_Li = BPSG_interactions_width[:,1]
+BPSG_interactions_He = BPSG_interactions_width[:,2]
+B203_widthlist = B203_interactions_width[:,0]
+B203_interactions_Li = B203_interactions_width[:,1]
+B203_interactions_He = B203_interactions_width[:,2]
+
+plt.figure()
+plt.title("Normalized interaction count as a function of boron width--He")
+plt.plot(BPSG_widthlist, BPSG_interactions_He, 'r', label="BPSG")
+plt.plot(B203_widthlist, B203_interactions_He, 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel(f"number of interactions normalized to 1 particle per $\mu$m")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/interactions-width-He.svg")
+
+plt.figure()
+plt.title("Normalized interaction count as a function of boron width--Li")
+plt.plot(BPSG_widthlist, BPSG_interactions_Li, 'r', label="BPSG")
+plt.plot(B203_widthlist, B203_interactions_Li, 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel(f"number of interactions normalized to 1 particle per $\mu$m")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/interactions-width-Li.svg")
+
+plt.figure()
+plt.title("Normalized interaction count as a function of boron width--Total")
+plt.plot(BPSG_widthlist, [BPSG_interactions_Li[i] + BPSG_interactions_He[i] for i in range(len(BPSG_widthlist))], 'r', label="BPSG")
+plt.plot(B203_widthlist, [B203_interactions_Li[i] + B203_interactions_He[i] for i in range(len(B203_widthlist))], 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel(f"number of interactions normalized to 1 particle per $\mu$m")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/interactions-width-total.svg")
+
+
+BPSG_charge_width = genfromtxt('./results/BPSG data/total-charge-depo.csv', delimiter=',')
+B203_charge_width = genfromtxt('./results/B203 data/total-charge-depo.csv', delimiter=',')
+
+BPSG_charge_Li = BPSG_charge_width[:,1]
+BPSG_charge_He = BPSG_charge_width[:,2]
+B203_charge_Li = B203_charge_width[:,1]
+B203_charge_He = B203_charge_width[:,2]
+
+plt.figure()
+plt.title("Total charge deposit as a function of boron width--He")
+plt.plot(BPSG_widthlist, BPSG_charge_He, 'r', label="BPSG")
+plt.plot(B203_widthlist, B203_charge_He, 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel("total charge deposition (fC)")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/charge-width-He.svg")
+
+plt.figure()
+plt.title("Total charge deposit as a function of boron width--Li")
+plt.plot(BPSG_widthlist, BPSG_charge_Li, 'r', label="BPSG")
+plt.plot(B203_widthlist, B203_charge_Li, 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel("total charge deposition (fC)")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/charge-width-Li.svg")
+
+plt.figure()
+plt.title("Total charge deposit as a function of boron width")
+plt.plot(BPSG_widthlist, [BPSG_charge_Li[i] + BPSG_charge_He[i] for i in range(len(BPSG_widthlist))], 'r', label="BPSG")
+plt.plot(B203_widthlist, [B203_charge_Li[i] + B203_charge_He[i] for i in range(len(B203_widthlist))], 'g', label="B203")
+plt.xlabel(f"width of boron layer ($\\mu m$)")
+plt.ylabel("total charge deposition (fC)")
+plt.grid()
+plt.legend()
+plt.savefig("./results/Integrated plots/charge-width-total.svg")
